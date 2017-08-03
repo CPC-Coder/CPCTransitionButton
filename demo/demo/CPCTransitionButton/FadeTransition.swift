@@ -25,23 +25,30 @@ open class FadeInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
+        //源vc
+        let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)! as UIViewController
+        //目标vc
+        let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)! as UIViewController
+        let initalFrame = transitionContext.initialFrame(for: fromVC)
+        toVC.view.frame = initalFrame
+        fromVC.view.frame = initalFrame
         
-        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-        let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        
 
-        toView.alpha = startingAlpha
-        fromView.alpha = 0.8
+
+        toVC.view.alpha = startingAlpha
+        fromVC.view.alpha = 0.8
         
-        containerView.addSubview(toView)
+        containerView.addSubview(toVC.view)
         
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
             
-            toView.alpha = 1.0
-            fromView.alpha = 0.0
+            toVC.view.alpha = 1.0
+            fromVC.view.alpha = 0.0
             
             }, completion: {
                 _ in
-                fromView.alpha = 1.0
+                fromVC.view.alpha = 1.0
                 transitionContext.completeTransition(true)
         })
     }
