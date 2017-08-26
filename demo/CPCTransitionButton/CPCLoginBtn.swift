@@ -19,7 +19,7 @@ open class CPCLoginBtn: UIButton {
     
     fileprivate lazy var spinner: SpinerLayer = {
         let s = SpinerLayer(frame: self.frame)
-        self.layer.addSublayer(s)
+        
         return s
     }()
     fileprivate var successComplection : LoginBtnCompletionClosure?
@@ -56,7 +56,8 @@ private extension CPCLoginBtn{
     
     func setupUI(){
         
-        spinner = SpinerLayer(frame: frame)
+        self.layer.addSublayer(spinner)
+        
         layer.cornerRadius = bounds.height/2
         layer.masksToBounds  = true
         
